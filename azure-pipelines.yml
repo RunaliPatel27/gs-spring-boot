@@ -53,9 +53,10 @@ stages:
       artifact: drop
 
 - stage: Deploy
+  displayName: Deploying jar
   jobs: 
   - deployment: VMDeploy
-    displayName: java spring boot
+    displayName: Java spring boot deploy
     environment:
       name: Springboot env
       resourceType: VirtualMachine

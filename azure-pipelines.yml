@@ -55,13 +55,13 @@ stages:
 
 jobs: 
 - deployment: VMDeploy
-  displayName: web
+  displayName: java spring boot
   environment:
-    name: <environment name>
+    name: Springboot env
     resourceType: VirtualMachine
   strategy:
       rolling:
-        maxParallel: 2  #for percentages, mention as x%
+        maxParallel: 1  #for percentages, mention as x%
         preDeploy:
           steps:
           - download: current

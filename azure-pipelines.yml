@@ -47,8 +47,7 @@ stages:
             - script: echo initialize, cleanup, backup, install certs
           deploy:
             steps:
-             - script: echo "Hello world"
-            # - script: java -jar '$(Pipeline.Workspace)/drop/complete/target/spring-boot-complete-0.0.1-SNAPSHOT.jar'
+            - script: java -jar '$(Pipeline.Workspace)/drop/complete/target/spring-boot-complete-0.0.1-SNAPSHOT.jar'
           routeTraffic:
             steps:
             - script: echo routing traffic

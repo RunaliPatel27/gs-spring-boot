@@ -21,6 +21,7 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     # goals: 'package'
     goals: 'deploy'
+    options: '-DgroupId="com.mypkg"  -DartifactId="my.artifact" -Dversion="1.0.0-SNAPSHOT"  -Dpackaging=jar -Dfile="my.artifact-1.0.0-SNAPSHOT.jar" -DgeneratePom="true" -DrepositoryId="$AZURE_FEED_ID" -Durl="$AZURE_FEED_URL"'
     # goals: 'clean compile assembly:single'
 
 - task: CopyFiles@2
@@ -30,5 +31,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    ArtifactName: 'drop1'
     publishLocation: 'Container'

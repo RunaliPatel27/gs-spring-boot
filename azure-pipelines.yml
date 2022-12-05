@@ -20,13 +20,10 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-    # goals: 'deploy'
-    # options: '-DgroupId="com.mypkg"  -DartifactId="my.artifact" -Dversion="1.0.0-SNAPSHOT"  -Dpackaging=jar -Dfile="my.artifact-1.0.0-SNAPSHOT.jar" -DgeneratePom="true" -DrepositoryId="$AZURE_FEED_ID" -Durl="$AZURE_FEED_URL"'
-    # goals: 'clean compile assembly:single'
 
 - task: CopyFiles@2
   inputs:
-    Contents: '**/*.jar'
+    Contents: 'complete/target/*.jar'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
   inputs:

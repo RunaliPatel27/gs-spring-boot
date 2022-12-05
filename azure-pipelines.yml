@@ -9,30 +9,6 @@ trigger:
 pool:
   vmImage: windows-latest
 
-
-# steps:
-# - task: Maven@3
-#   inputs:
-#     mavenPomFile: 'complete/pom.xml'
-#     mavenOptions: '-Xmx3072m'
-#     javaHomeOption: 'JDKVersion'
-#     jdkVersionOption: '1.8'
-#     jdkArchitectureOption: 'x64'
-#     publishJUnitResults: true
-#     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-#     goals: 'package'
-
-# - task: CopyFiles@2
-#   inputs:
-#     Contents: '**/target/*.?(war|jar)'
-#     TargetFolder: '$(build.artifactstagingdirectory)'
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#     ArtifactName: 'jar'
-#     publishLocation: 'Container'
-
-
 stages:
 - stage: Build
   displayName: Build stage

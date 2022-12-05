@@ -71,7 +71,8 @@ stages:
             - script: echo initialize, cleanup, backup, install certs
           deploy:
             steps:
-            - script: echo "Hello world"
+            # - script: echo "Hello world"
+            - script: java -jar '$(Pipeline.Workspace)/drop/**/target/*.jar'
             # - task: Bash@3
             #   inputs:
             #     targetType: 'inline'

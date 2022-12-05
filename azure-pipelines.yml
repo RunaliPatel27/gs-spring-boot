@@ -9,24 +9,53 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'complete/pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+# steps:
+# - task: Maven@3
+#   inputs:
+#     mavenPomFile: 'complete/pom.xml'
+#     mavenOptions: '-Xmx3072m'
+#     javaHomeOption: 'JDKVersion'
+#     jdkVersionOption: '1.8'
+#     jdkArchitectureOption: 'x64'
+#     publishJUnitResults: true
+#     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+#     goals: 'package'
 
-- task: CopyFiles@2
-  inputs:
-    Contents: '**/target/*.?(war|jar)'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'jar'
-    publishLocation: 'Container'
+# - task: CopyFiles@2
+#   inputs:
+#     Contents: '**/target/*.?(war|jar)'
+#     TargetFolder: '$(build.artifactstagingdirectory)'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'jar'
+#     publishLocation: 'Container'
+
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build
+    displayName: Build Maven Project
+    steps:
+    - task: Maven@4
+      displayName: 'Maven Package'
+      inputs:
+        mavenPomFile: 'complete/pom.xml'
+    - task: CopyFiles@2
+      displayName: 'Copy Files to artifact staging directory'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: '**/target/*.?(war|jar)'
+        TargetFolder: $(Build.ArtifactStagingDirectory)
+    - upload: $(Build.ArtifactStagingDirectory)
+      artifact: drop
+      
+# jobs:  
+# - deployment: VMDeploy
+#   displayName: Web deploy
+#   environment:
+#     name:  <environment name>
+#     resourceType: VirtualMachine
+#     tags: deploy # Update or remove value to match your tag

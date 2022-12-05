@@ -20,7 +20,8 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     # goals: 'package'
-    goals: 'clean compile assembly:single'
+    goals: 'deploy'
+    # goals: 'clean compile assembly:single'
 
 - task: CopyFiles@2
   inputs:
@@ -29,5 +30,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop1'
+    ArtifactName: 'drop'
     publishLocation: 'Container'
